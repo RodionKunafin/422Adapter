@@ -21,7 +21,6 @@ public class ItemsDataAdapter extends BaseAdapter {
     private LayoutInflater inflater;
 
 
-
     private CompoundButton.OnCheckedChangeListener myCheckChangeList
             = new CompoundButton.OnCheckedChangeListener() {
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -72,11 +71,18 @@ public class ItemsDataAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
         if (view == null) {
             view = inflater.inflate(R.layout.item_list_view, parent, false);
         }
+        Button btnRemove = view.findViewById(R.id.btnRemove);
+        btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItem(position);
+            }
+        });
 
         ItemData itemData = items.get(position);
 
@@ -93,5 +99,6 @@ public class ItemsDataAdapter extends BaseAdapter {
         checkBox.setChecked(itemData.isChecked());
 
         return view;
+
     }
 }
